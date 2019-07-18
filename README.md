@@ -243,7 +243,7 @@ Input: `nil`
 Output: `0`
 ```swift
 
-let numArr: [Int?]?
+let numArr: [Int?]? = nil
 var numSum = 0
 
 if let numArr = numArr { //<THIS IS ALL THAT NEEDED TO BE ADDED
