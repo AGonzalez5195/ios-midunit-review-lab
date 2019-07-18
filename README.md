@@ -8,14 +8,27 @@
 Input: `Hello, there`
 
 Output: `HELLO, THERE`
+```swift
+var str = "Hello, there"
+print(str.uppercased())
 
+```
 2. **Given a String, return a String alternating between uppercase and lowercase letters**
-
 
 Input: `Hello, there`
 
 Output: `HeLlO, tHeRe`
+```swift
+for (index, element) in strArray.enumerated () {
+if index % 2 == 0 {
+answer.append(String(element.uppercased()))
+} else {
+answer.append(String(element).lowercased())
+}
+}
 
+print(answer.joined())
+```
 
 3. **Given a String, return a String with all occurrences of a given letter removed**
 
@@ -23,6 +36,7 @@ Input: `Hello, there`
 
 Output: `Hllo, thr`
 
+``print(str.replacingOccurrences(of: "e", with: ""))``
 
 ## Arrays
 
@@ -33,43 +47,132 @@ Input: `[1,5,2,4,1,4]`
 
 Output: `5`
 
+```swift
+
+let arr = [1,5,2,4,1,4]
+var biggestNum = 0
+for num in arr {
+if num > biggestNum {
+biggestNum = num
+}   
+}
+
+print(biggestNum)
+
+```
+
 2. **Given an array of type [Int], return the smallest element**
 
 Input: `[1,5,2,4,1,4]`
 
+
 Output: `1`
+```swift
+var smallestNum = Int.max
+for num in arr {
+if num < smallestNum {
+smallestNum = num
+}
+}
+
+print(smallestNum)
+```
 
 3. **Given an array of type [Int], return its sum**
 
-Input: `[1,5,2,4,1,4]`
+In put: `[1,5,2,4,1,4]`
 
 Output: `17`
+```swift
+var sumArr = 0
+for num in arr {
+sumArr += num
+}
+
+print(sumArr)
+//or
+print(arr.reduce(0, +))
+```
 
 4. **Given an array of type [Double], return its average**
 
 Input: `[3,4.5,7.5,2,1]`
-
 Output: `3.6`
+```swift
+print(arr.reduce(0, +)/Double(arr.count))
 
+//OR
+
+var sum = 0.0
+var numbersTotal = 0.0
+for numbers in arr {
+sum += numbers
+numbersTotal += 1.0
+}
+
+print(sum)
+print(numbersTotal)
+print(sum/numbersTotal)
+```
 5. **Given an array of type [Double] and a Double, return the sum of all numbers in the array greater than a given number**
 
 Input: `[3,4.5,7.5,2,1], 3`
-
 Output: `12`
+```swift
 
+var sum = 0.0
+
+for numbers in array {
+if numbers > 3.0 {
+sum += numbers
+}
+}
+
+print(sum)
+```
 
 6. **Given an array of type [Double], return the product of all the elements**
 
 Input: `[3,4.5,7.5,2,1]`
 
 Output: `202.5`
+```swift
+
+var product = 1.0
+
+for numbers in array {
+product *= numbers
+}
+
+print(product)
+```
 
 7. **Given an array of type [Int], return the second smallest value in the array**
 
 Input: `[3,6,1,9,4,8]`
 
 Output: `3`
+```swift
 
+let numbersArray = [3,6,1,9,4,8, 1, 1, 3, 6]
+var numArr: [Int] = []
+
+//The problem is that array has repeated numbers. So using index 1 (as the second smallest number in an array), the second element, may not actually be the second smallest number when sorted. How do we fix this?
+
+let setNumbers = Set(numbersArray)
+//[REMEMBER] Because of the nature of how Sets work, there will never be repeated elements. Therefore, turning an array into a set will remove any repeated numbers, eliminating the prior issue. 
+
+//Set is a 'random', so while it may have no repeats, we still have to sort it.
+print(setNumbers.sorted()[1]) //Now that it's sorted and contains no repeats, we can use the index of 1 to find the second smallest number in the array.
+
+//OR
+
+for number in numbersArray where numArr.contains(number) == false {
+numArr.append(number)
+}
+
+print(numArr.sorted()[1])
+```
 ## Optionals
 
 1. **Given an array of type [String?] return an array of [String] removing all nil values**
@@ -77,30 +180,122 @@ Output: `3`
 Input: `[nil, "We", "come", nil, "in", "peace"]`
 
 Output: `["We", "come", "in", "peace"]`
+```swift
+
+for word in givenWords {
+if let wordUnwrapped = word { // Looks at "word" (which are nil, "We", "come", nil, "in", "peace" and says, "okay, if word contains an ACTUAL value (ie: NOT nil), save it to the new variable 'wordUnwrapped'
+print(wordUnwrapped)
+sentence.append(wordUnwrapped)
+}
+}
+
+print(sentence)
+```
 
 2. **Given an array of type [String?]? return an array of [String] removing all nil values**
 
 Input: `nil`
 
 Output: `[]`
+```swift
+
+let optionalArray: [String?]? = nil
+var newStringArray: [String] = []
+
+if let arrayUnwrapped = optionalArray { // If 'optionalArray' is not a nil and is an actual array, let's save it to a new variable called 'arrayUnwrapped' that we just created.
+
+for stuff in arrayUnwrapped { // This is now looking at all the elements in the newly made arrayUnwrapped. The stuff inside arrayUnwrapped can still be nil because it is of the type '[String?]'
+if let stuffUnwrapped = stuff {// Now, if the stuff/elements in the new arrayUnwrapped are NOT nil and actually have values, let's save all of that to another variable called stuffUnwrapped.
+
+newStringArray.append(stuffUnwrapped) //Now, we have our variable, 'stuffUnwrapped', that we know contains real string and no nils. Let us append these to the empty [String] array and print it.
+}
+}
+}
+
+print(newStringArray)
+```
 
 3. **Given an array of type [Int?] return the sum of all non-nil values.  Use guard statements in your solution.**
 
 Input: `[4, nil, 9, 5, nil]`
 
 Output: `18`
+```swift
+
+for number in numArr {
+guard let number = number
+else{ // it will check if the number is real, if not it will move to the next index
+continue
+}
+
+print(number) //to check if does not contain nil
+
+numSum += number
+}
+
+print(numSum)
+```
 
 4. **Given an array of type [Int?]? return the sum of all non-nil values.  Use guard statements in your solution.**
 
 Input: `nil`
 
 Output: `0`
+```swift
 
+let numArr: [Int?]?
+var numSum = 0
+
+if let numArr = numArr { //<THIS IS ALL THAT NEEDED TO BE ADDED
+for number in numArr {
+guard let number = number
+else{ // it will check if the number is real, if not it will move to the next index
+continue
+}
+
+print(number) //to check if does not contain nil
+
+numSum += number
+}
+}
+
+print(numSum)
+
+
+```
 5. **Given an array of type [Int?] and an optional Int, return the sum of all values not equal to the given number.  If the given number is nil, return the sum of all non-nil values.**
 
 Input: `[1, 1, nil, 3, 5, nil, 1, nil, 3, 5, nil, 5, nil, 3], 1`
 
 Output: `24`
+
+```
+let numArr = [1, 1, nil, 3, 5, nil, 1, nil, 3, 5, nil, 5, nil, 3]
+let excludedNum = 1
+var newArr: [Int] = []
+
+for num in numArr {
+guard let num = num else {
+continue
+}
+if num != 1 {
+newArr.append(num)
+}
+}
+
+print(newArr.reduce(0,+))
+```
+or 
+
+```
+for num in numArr {
+if num != 1 && num != nil {
+newArr.append(num!)
+}
+}
+
+print(newArr.reduce(0,+))
+```
 
 
 ## Dictionaries
@@ -164,21 +359,53 @@ Output: `Never trust a computer you can't throw out a window`
 
 ```swift
 enum NumberType {
-    case even
-    case odd
+case even
+case odd
 }
-```
-
 Input: `[1,2,3,4,5,6], NumberType.odd`
-
 Output: `[1,3,5]`
+```
+```
+let number = [1,2,3,4,5,6]
+
+enum NumberType {
+
+case even
+// Even numbers can be found by using the argument, "Number % 2 == 0"
+case odd
+// Odd numbers can be found by using the argument, "Number % 2 != 0"
+
+func evenOrOdd(arr: [Int]) -> [Int] {
+var numArr: [Int] = [] //This array will have the numbers appended to it depending on the case
+switch self { //Refers to instance of NumberType. Looks at its own value. In this case, it would be even or odd.
+case .even: //Conditions to check for even numbers + append
+for numbers in arr {
+if numbers % 2 == 0 {
+numArr.append(numbers)
+}
+
+}
+
+case .odd: //Conditions to check for odd numbers + append
+for numbers in arr {
+if numbers % 2 != 0 {
+numArr.append(numbers)
+}
+}
+}
+return numArr //returns the array with the appended numbers
+}
+}
+let even = NumberType.even //Instance of NumberType that has the member value, 'even'.
+print(even.evenOrOdd(arr: number))
+```
 
 2. **Given a String and an instance of StringType (defined below), return the String either lowercased or uppercased**
 
 ```swift
 enum StringType {
-    case lowercase
-    case uppercase
+case lowercase
+case uppercase
 }
 ```
 
@@ -190,17 +417,18 @@ Output: ``"DESIGN IS NOT JUST WHAT IT LOOKS LIKE AND FEELS LIKE. DESIGN IS HOW I
 
 ```swift
 enum FileStatus: CustomStringConvertible {
-    case unsaved
-    case saved(numberOfVersions: Int)
-    var description: String {
-        switch self {
-        case .unsaved: return "Unsaved File"
-        case let .saved(numberOfVersions): return "File that has been saved \(numberOfVersions) times"
-        }
-    }
+case unsaved
+case saved(numberOfVersions: Int)
+var description: String {
+switch self {
+case .unsaved: return "Unsaved File"
+case let .saved(numberOfVersions): return "File that has been saved \(numberOfVersions) times"
+}
+}
 }
 ```
 
 Input: `[FileStatus.saved(numberOfVersions: 5), FileStatus.saved(numberOfVersions: 3), FileStatus.saved(numberOfVersions: 8)], 4`
 
 Output: `[File that has been saved 5 times, File that has been saved 8 times]`
+
